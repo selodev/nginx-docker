@@ -22,14 +22,13 @@ services:
   #Nginx
   nginx:
     image: nginx:latest
-    container_name: nginx-docker
     env_file: .env
     environment:
       DOMAIN_NAME: ${DOMAIN_NAME}
     extra_hosts:
       - "host.docker.internal:host-gateway"
     networks:
-      - nginx_docker_network
+      - nginx_mkcert_network
     volumes: # 💡
       - ./webserver/nginx/default.conf:/etc/nginx/conf.d/default.conf⚠️
       - ./mkcert/certs:/etc/nginx/certs
@@ -47,7 +46,6 @@ services:
         context: ./mkcert
         dockerfile: Dockerfile
     image: mkcert:local
-    container_name: nginx-mkcert
     env_file: .env
     environment:
       DOMAIN_NAME: ${DOMAIN_NAME}
@@ -59,4 +57,4 @@ services:
 networks:
   nginx_docker_network:
     driver: bridge
-    name: nginx_docker_network
+    name: nginx_mkcert_network
