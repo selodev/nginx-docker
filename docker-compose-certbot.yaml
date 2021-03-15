@@ -25,7 +25,7 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     networks:
-      - strapi_network
+      - nginx_docker_network
     volumes:
       - ./webserver/certbot/default.conf:/etc/nginx/conf.d/default.conf
       - ./webserver/certbot/selo.dev.conf:/etc/nginx/sites-enabled/selo.dev.conf
@@ -42,7 +42,7 @@ services:
     container_name: certbot
     image: certbot/certbot
     networks:
-      - strapi_network
+      - nginx_cert_network
     volumes:
       - ./webserver/certbot/conf:/etc/letsencrypt
       - ./webserver/certbot/www:/var/www/certbot
@@ -53,8 +53,5 @@ services:
       - nginx
       
 networks:
-  strapi_network:
-    name: strapi_network
-
-volumes:
-  strapi-data:
+  nginx_docker_network:
+    name: nginx_docker_network

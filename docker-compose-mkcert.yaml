@@ -22,14 +22,14 @@ services:
   #Nginx
   nginx:
     image: nginx:latest
-    container_name: strapi-nginx
+    container_name: nginx-docker
     env_file: .env
     environment:
       DOMAIN_NAME: ${DOMAIN_NAME}
     extra_hosts:
       - "host.docker.internal:host-gateway"
     networks:
-      - strapi_network
+      - nginx_docker_network
     volumes: # 💡
       - ./webserver/nginx/default.conf:/etc/nginx/conf.d/default.conf⚠️
       - ./mkcert/certs:/etc/nginx/certs
@@ -47,19 +47,16 @@ services:
         context: ./mkcert
         dockerfile: Dockerfile
     image: mkcert:local
-    container_name: strapi-mkcert
+    container_name: nginx-mkcert
     env_file: .env
     environment:
       DOMAIN_NAME: ${DOMAIN_NAME}
     networks:
-      - strapi_network
+      - nginx_docker_network
     volumes:
       - ./mkcert/certs:/root/.local/share/mkcert
 
 networks:
-  strapi_network:
+  nginx_docker_network:
     driver: bridge
-    name: strapi_network
-
-volumes:
-  strapi-data:
+    name: nginx_docker_network
