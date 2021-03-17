@@ -5,7 +5,7 @@ server {
 }
 
 upstream coder-app {
-  server host.docker.external:8100;
+  server 35.239.199.218:8100;
 }
 
 server {

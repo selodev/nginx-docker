@@ -36,7 +36,7 @@ services:
     #entrypoint: /bin/sh -c "while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g 'daemon off;'" # 💡
     user: ${CURRENT_UID}
     depends_on:
-      - mkcert
+      - certbot
   certbot:
     image: certbot/certbot
     networks:

@@ -2,7 +2,7 @@
 
 set -ea
 
-dir="/tmp/certs"
+dir="/root/.local/share/mkcert"
 if [ -z "$(ls -A -- "$dir")" ]; then 
     echo "No Existing Certs Found.";
     mkcert -install && for i in $(echo ${DOMAIN_NAME} | sed "s/,/ /g");

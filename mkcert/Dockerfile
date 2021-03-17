@@ -10,9 +10,6 @@ RUN cd /go && \
     go build -o /bin/mkcert
     #If no files exists
 
-# Copy local code to the container image.
-COPY certs/ /tmp/certs
-
 
 COPY docker-entrypoint.sh /usr/local/go/bin/
 
